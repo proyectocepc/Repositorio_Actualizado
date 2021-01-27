@@ -9,7 +9,10 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class BDConexion {
-//CAMBIO 11:40PM ASDSADADAaaaaaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+//Conexion buena
+    
+    
+    //aa
    
     public static void EntradaCurso(String a, String b, String c, String d, String e, String f,String g) throws SQLException {
         CallableStatement entrada = Conexion.getConexion().prepareCall("{call EntradaCurso(?,?,?,?,?,?,?)}");
