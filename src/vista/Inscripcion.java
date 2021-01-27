@@ -1,0 +1,638 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vista;
+import Conexiones.BDConexion;
+import java.awt.Frame;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+/**
+ *
+ * @author Familia Mijares
+ */
+public class Inscripcion extends  javax.swing.JInternalFrame {
+
+    static ResultSet res;
+    String Fac2;
+    String Fac;
+    String inscripcion;
+
+    public void cambiarStatusE() {
+        try {
+            PreparedStatement pps = Conexiones.Conexion.getConexion().prepareStatement("update ESTUDIANTE set ESTADO ='INSCRITO' WHERE CI ='" + CedulaeEstu.getText() + "'");
+            pps.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    /**
+     * Creates new form Inscripcion
+     */
+    public Inscripcion() {
+         
+        initComponents();
+        setSize(1143, 739);
+         
+        
+        
+        
+        
+        CedulaeEstu.setText(PagoEstudiante.Texto);
+      //  Validacion();
+    }
+
+  
+
+    /*public void Validacion() {
+        String mensaje = BDConexion.bucarCedulaestu(CedulaeEstu.getText());
+        if (mensaje.equals("La Cedula ya Existe")) {
+            CodExiste.setText("Cedula Encontrada");
+            SeccionEstu.setEditable(true);
+        } else if (CedulaeEstu.getText().isEmpty()) {
+            CodExiste.setText("");
+
+        } else {
+            CodExiste.setText("Cedula no Registrada");
+            SeccionEstu.setEditable(false);
+        }
+    }
+
+    public void ValidacionSeccion() {
+        String mensaje = BDConexion.ChequearSeccion(SeccionEstu.getText());
+        if (mensaje.equals("Seccion disponible")) {
+            CodSeccionn.setText("Seccion Disponible");
+            factura.setEditable(true);
+        } else if (SeccionEstu.getText().isEmpty()) {
+            CodSeccionn.setText("");
+
+        } else {
+            CodSeccionn.setText("Seccion en curso o finalizo");
+            factura.setEditable(false);
+        }
+    }
+
+    public void Validacionf() {
+        String mensaje = BDConexion.BuscarFactura(factura.getText());
+        if (mensaje.equals("Factura Utilizada")) {
+            F.setText("Factura Utilizada");
+            Fac2 = "fac";
+            Fac = "";
+            Agregar.setEnabled(false);
+        } else if (factura.getText().isEmpty()) {
+            F.setText("");
+            Fac2 = "";
+            Fac = "";
+        } else {
+            F.setText("Factura Disponible");
+            Fac = "Factura Disponible";
+            Fac2 = "facc";
+            Agregar.setEnabled(true);
+        }
+    }
+
+    public void ValidacionEf() {
+        String mensaje = BDConexion.BuscarEFactura(factura.getText());
+        if (mensaje.equals("Factura Existe") && Fac.equals("Factura Disponible")) {
+            Agregar.setEnabled(true);
+
+        } else if (Fac2.equals("fac") && mensaje.equals("Factura no Existe")) {
+            Agregar.setEnabled(false);
+
+        } else {
+            Agregar.setEnabled(false);
+        }
+    }
+
+    public void validacionEF() {
+        String mensaje = BDConexion.BuscarFacturaU(factura.getText(),CedulaeEstu.getText());
+        if (mensaje.equals("Factura encontrada")) {
+            inscribirEstudiante();
+            cambiarStatusE();
+            Agregar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "la factura no corresponde al estudiante ingresado");
+
+        }
+    }*/
+
+    public void inscribirEstudiante() {
+        try {
+            String Ced, sec, not, fa;
+            BDConexion.EntradaEstudianteEstIns(
+                    
+                    Ced = CedulaeEstu.getText(),
+                    sec = SeccionEstu.getText(),
+                    
+                   
+                    not = "13/07/2020"
+            
+            );
+            SeccionEstu.setText("");
+            no.setText("");
+            factura.setText("");
+            JOptionPane.showMessageDialog(null, "Inscrito correctamente");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    /* public void noinscribirRepetidosSeccion() {
+        String mensaje = BDConexion.buscarEstudianteSecciom(SeccionEstu.getText(),CedulaeEstu.getText());
+        if (mensaje.equals("CI ENCONTRADA")) {
+            JOptionPane.showMessageDialog(null, "El estudiante ya esta inscrito a esa seccion");
+
+        } else {
+             //validacionEF();
+        }
+    } */
+
+
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        panelsuperior = new javax.swing.JPanel();
+        panelinferior = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        Agregar = new javax.swing.JButton();
+        CodExiste = new javax.swing.JTextField();
+        CedulaeEstu = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        factura = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        F = new javax.swing.JTextField();
+        jSeparator8 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        no = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator9 = new javax.swing.JSeparator();
+        SeccionEstu = new javax.swing.JTextField();
+        CodSeccionn = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        Secciones = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
+        getContentPane().setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(248, 247, 247));
+        jPanel1.setLayout(null);
+
+        panelsuperior.setBackground(new java.awt.Color(0, 153, 204));
+        panelsuperior.setLayout(null);
+        jPanel1.add(panelsuperior);
+        panelsuperior.setBounds(0, -1, 1230, 60);
+
+        panelinferior.setBackground(new java.awt.Color(0, 153, 204));
+        panelinferior.setLayout(null);
+        jPanel1.add(panelinferior);
+        panelinferior.setBounds(0, 670, 1250, 60);
+
+        jLabel7.setFont(new java.awt.Font("Lao UI", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("INSCRIPCIÓN ESTUDIANTIL");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(460, 80, 330, 32);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        Agregar.setBackground(new java.awt.Color(142, 252, 199));
+        Agregar.setForeground(new java.awt.Color(102, 102, 102));
+        Agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_save_26px_1.png"))); // NOI18N
+        Agregar.setText("Guardar");
+        Agregar.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        Agregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AgregarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AgregarMouseExited(evt);
+            }
+        });
+        Agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarActionPerformed(evt);
+            }
+        });
+
+        CodExiste.setEditable(false);
+        CodExiste.setBackground(new java.awt.Color(255, 255, 255));
+        CodExiste.setForeground(new java.awt.Color(153, 153, 153));
+        CodExiste.setBorder(null);
+        CodExiste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodExisteActionPerformed(evt);
+            }
+        });
+
+        CedulaeEstu.setBorder(null);
+        CedulaeEstu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CedulaeEstuActionPerformed(evt);
+            }
+        });
+        CedulaeEstu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CedulaeEstuKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CedulaeEstuKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel2.setText("CI:");
+
+        factura.setBorder(null);
+        factura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facturaActionPerformed(evt);
+            }
+        });
+        factura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                facturaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                facturaKeyTyped(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel5.setText("Factura:");
+
+        F.setEditable(false);
+        F.setBackground(new java.awt.Color(255, 255, 255));
+        F.setForeground(new java.awt.Color(153, 153, 153));
+        F.setBorder(null);
+        F.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FActionPerformed(evt);
+            }
+        });
+
+        jSeparator8.setBackground(new java.awt.Color(22, 44, 81));
+
+        jSeparator10.setBackground(new java.awt.Color(22, 44, 81));
+
+        no.setBorder(null);
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel3.setText("Sección:");
+
+        jSeparator9.setBackground(new java.awt.Color(22, 44, 81));
+
+        SeccionEstu.setBorder(null);
+        SeccionEstu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeccionEstuActionPerformed(evt);
+            }
+        });
+        SeccionEstu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                SeccionEstuKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                SeccionEstuKeyTyped(evt);
+            }
+        });
+
+        CodSeccionn.setEditable(false);
+        CodSeccionn.setBackground(new java.awt.Color(255, 255, 255));
+        CodSeccionn.setForeground(new java.awt.Color(153, 153, 153));
+        CodSeccionn.setBorder(null);
+        CodSeccionn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodSeccionnActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_identification_documents_24px.png"))); // NOI18N
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Billing_Machine_32px.png"))); // NOI18N
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_course_24px.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(69, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(no, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Agregar))
+                        .addGap(170, 170, 170))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(168, 168, 168))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel27)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(SeccionEstu, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(CodSeccionn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(factura, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(8, 8, 8)
+                                        .addComponent(F, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(CedulaeEstu, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(CodExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(no, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(CedulaeEstu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addComponent(CodExiste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(factura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(F, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(SeccionEstu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CodSeccionn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addComponent(Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
+        );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(390, 120, 460, 530);
+
+        jPanel3.setBackground(new java.awt.Color(0, 135, 180));
+        jPanel3.setLayout(null);
+
+        Secciones.setBackground(new java.awt.Color(0, 153, 204));
+        Secciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_list_30px.png"))); // NOI18N
+        Secciones.setText("Secciones Registradas");
+        Secciones.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        Secciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Secciones.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        Secciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Secciones.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                SeccionesMouseMoved(evt);
+            }
+        });
+        Secciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                SeccionesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                SeccionesMouseExited(evt);
+            }
+        });
+        Secciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeccionesActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Secciones);
+        Secciones.setBounds(0, 40, 160, 60);
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(0, 50, 170, 150);
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LOGOR.png"))); // NOI18N
+        jPanel1.add(jLabel17);
+        jLabel17.setBounds(680, 190, 650, 520);
+
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/er.png"))); // NOI18N
+        jPanel1.add(jLabel18);
+        jLabel18.setBounds(0, 0, 1230, 680);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 1240, 780);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void CedulaeEstuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaeEstuKeyTyped
+      char car = evt.getKeyChar();
+       if(CedulaeEstu.getText().length()>=8) evt.consume();
+       if((car<'0' || car>'9')) evt.consume();
+    }//GEN-LAST:event_CedulaeEstuKeyTyped
+
+    private void SeccionEstuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SeccionEstuKeyTyped
+        char b = evt.getKeyChar();
+        if(SeccionEstu.getText().length()>=10) evt.consume();
+        if((b<'a' || b >'z') && (b<'0' || b >'9')) evt.consume();
+    }//GEN-LAST:event_SeccionEstuKeyTyped
+
+    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
+ if (CedulaeEstu.getText().isEmpty() /* ||SeccionEstu.getText().isEmpty() */  ){
+            JOptionPane.showMessageDialog(this,"rellene todos los campos obligatorios",   "informacion", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+              inscribirEstudiante();
+         }
+    }//GEN-LAST:event_AgregarActionPerformed
+
+    private void CodExisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodExisteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodExisteActionPerformed
+
+    private void CedulaeEstuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaeEstuKeyReleased
+        //Validacion();
+       
+    }//GEN-LAST:event_CedulaeEstuKeyReleased
+
+    private void SeccionEstuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SeccionEstuKeyReleased
+ 
+       // ValidacionSeccion();
+    }//GEN-LAST:event_SeccionEstuKeyReleased
+
+    private void SeccionEstuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeccionEstuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SeccionEstuActionPerformed
+
+    private void CodSeccionnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodSeccionnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodSeccionnActionPerformed
+
+    private void FActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FActionPerformed
+
+    private void facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturaActionPerformed
+      
+    }//GEN-LAST:event_facturaActionPerformed
+
+    private void facturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_facturaKeyReleased
+        //Validacionf();
+       
+        
+    }//GEN-LAST:event_facturaKeyReleased
+
+    private void facturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_facturaKeyTyped
+       char car = evt.getKeyChar();
+       if(factura.getText().length()>=10) evt.consume();
+       if((car<'0' || car>'9')) evt.consume();
+    }//GEN-LAST:event_facturaKeyTyped
+
+    private void CedulaeEstuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CedulaeEstuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CedulaeEstuActionPerformed
+
+    private void AgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseEntered
+          
+    }//GEN-LAST:event_AgregarMouseEntered
+
+    private void AgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseExited
+          
+    }//GEN-LAST:event_AgregarMouseExited
+
+    private void SeccionesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SeccionesMouseMoved
+
+    }//GEN-LAST:event_SeccionesMouseMoved
+
+    private void SeccionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SeccionesMouseEntered
+
+    }//GEN-LAST:event_SeccionesMouseEntered
+
+    private void SeccionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SeccionesMouseExited
+
+    }//GEN-LAST:event_SeccionesMouseExited
+
+    private void SeccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeccionesActionPerformed
+        Frame f=JOptionPane.getFrameForComponent(this);
+        new Seccion(f,true).setVisible(true);
+    }//GEN-LAST:event_SeccionesActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Inscripcion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Inscripcion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Inscripcion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Inscripcion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Inscripcion().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton Agregar;
+    public static javax.swing.JTextField CedulaeEstu;
+    public static javax.swing.JTextField CodExiste;
+    public static javax.swing.JTextField CodSeccionn;
+    public static javax.swing.JTextField F;
+    public static javax.swing.JTextField SeccionEstu;
+    public static javax.swing.JButton Secciones;
+    public static javax.swing.JTextField factura;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JTextField no;
+    private javax.swing.JPanel panelinferior;
+    private javax.swing.JPanel panelsuperior;
+    // End of variables declaration//GEN-END:variables
+}
