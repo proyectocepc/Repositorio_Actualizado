@@ -9,8 +9,8 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class BDConexion {
-
-   //Cambio aqui a
+//comentario
+      
     public static void EntradaCurso(String a, String b, String c, String d, String e, String f,String g) throws SQLException {
         CallableStatement entrada = Conexion.getConexion().prepareCall("{call EntradaCurso(?,?,?,?,?,?,?)}");
         entrada.setString(1, a);
@@ -23,6 +23,8 @@ public class BDConexion {
         entrada.execute();
 
     }
+    int jesus = 1;
+    
 
     public static void EntradaPersonal(String a, String b, String c, String d, String e, String f, String g) throws SQLException {
         CallableStatement r = Conexion.getConexion().prepareCall("{call EntradaPersona(?,?,?,?,?,?,?)}");
