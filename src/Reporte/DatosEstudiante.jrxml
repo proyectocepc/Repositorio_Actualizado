@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="266"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="139" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="163" y="34" width="228" height="85" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos Estudiantil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="61" width="73" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="117" width="129" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[El Tigre Edo Anzoátegui.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="87" width="129" height="26" forecolor="#333333"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Cooperativa Educativa Petrolera y Comercial     (C.E.P.C)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="41" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[J-31497525-0]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="403" y="41" width="130" height="74"/>
+			</rectangle>
+			<image>
+				<reportElement x="30" y="10" width="129" height="77"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\13-07-2020-backup_recuperar_restore\\src\\img\\LOGOR.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="414" y="42" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[J-31497525-0]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="403" y="62" width="130" height="20" backcolor="#FFCC66"/>
+			</rectangle>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="520" splitType="Stretch">
+			<rectangle>
+				<reportElement x="5" y="4" width="542" height="347" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="13" y="7" width="126" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estudiante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="61" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Apellidos:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="118" y="71" width="138" height="17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P_APELLIDO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="283" y="58" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nombres:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="376" y="68" width="138" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="157" y="7" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Cédula:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="245" y="17" width="138" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{CI}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="116" width="159" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Fecha de Nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="116" width="82" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Genero:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="164" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="164" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Correo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="221" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Ciudad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="221" width="120" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Código Postal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="272" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Sector:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="272" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Calle:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="272" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[N° Casa:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="5" y="359" width="542" height="161" backcolor="#FFCC66"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="17" y="370" width="126" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Representante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="163" y="370" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Cédula:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="403" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Apellido:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="400" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="451" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Telélefono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="451" width="80" height="30" forecolor="#333333"/>
+				<textElement textAlignment="Right">
+					<font fontName="Brush Script MT" size="20" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Parentesco:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="9" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement x="157" y="71" width="277" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="MV Boli"/>
+				</textElement>
+				<text><![CDATA["Moral y Luces son Nuestras primeras necesidades"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="24" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contacto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="51" width="278" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[0412-0817694 / 0414-8193156 / 02835148711]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="22" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="10" y="4" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,780 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vista;
+
+import Conexiones.BDConexion;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author rosan
+ */
+public class NotasEstudiantile extends javax.swing.JInternalFrame {
+static ResultSet res;
+    /**
+     * Creates new form NotasEstudiantiles
+     */
+//NOTAS ESTUDIANTILES
+    public NotasEstudiantile() {
+        initComponents();
+         setSize(785, 672);
+         this.cambios.setVisible(false);
+    }
+    
+    //VALIDACION DE CEDULA
+public void Validacion() {
+     String mensaje=BDConexion.bucarCedulaestuINS(CedulaeEstu.getText());
+     if(mensaje.equals("La Cedula ya Existe")){
+         CodExiste.setText("Estudiante");
+         ModificarDatosN.setEnabled(true);
+         seccion.setEnabled(true);
+     }else if(CedulaeEstu.getText().isEmpty()){
+     CodExiste.setText("");
+         
+     }else{
+        CodExiste.setText("Cedula no Registrada"); 
+        seccion.setEnabled(false); 
+        ModificarDatosN.setEnabled(false);
+             }
+}
+
+//VALIDACION DE SECCION
+    public void ValidacionSeccion() {
+     String mensaje=BDConexion.ChequearSeccionReporteAprobados(seccion.getText());
+     if(mensaje.equals("Seccion Finalizada")){
+         CodSeccionn.setText("Sección Finalizada");   
+          SaveNota.setEnabled(true);
+          NotaF.setEnabled(true);
+         
+     }
+     else if(seccion.getText().isEmpty()){
+     CodSeccionn.setText("");
+        
+     }else{
+        CodSeccionn.setText("Sección Disponible o ya Iniciada"); 
+                 SaveNota.setEnabled(false);
+                 NotaF.setEnabled(false);
+             }
+}
+    
+    public void GuardarNota(){
+        if (CedulaeEstu.getText().isEmpty() ){
+            JOptionPane.showMessageDialog(this,"rellene todos los campos obligatorios",   "informacion", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            try {
+                PreparedStatement pps = Conexiones.Conexion.getConexion().prepareStatement("update ESTUDIANTE_ESTA_INS_C set NOTAS_E='" +
+                    NotaF.getText()+ "' where CI='" + CedulaeEstu.getText() +"'  AND NOMBRE= '"+ seccion.getText()+ "'");
+                pps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "NOTAS CARGADAS CON EXITO");
+                NotaF.setText("");
+                seccion.setText("");
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,  ex);
+            }
+
+        }
+    }
+    public void BuscarNota(){
+          if(CedulaeEstu.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Coloque Bien sus Datos","Error",JOptionPane.ERROR_MESSAGE);
+            CedulaeEstu.setText("");
+            CedulaeEstu.requestFocus();
+        }else{
+            try{
+                String b;
+                BDConexion.BuscarNota(Integer.parseInt(CedulaeEstu.getText()));
+                b=CedulaeEstu.getText();
+                CedulaeEstu.setText("");
+                seccion.setText("");
+                NotaF.setText("");
+                seccion.requestFocus();
+                NotaF.requestFocus();
+                res= Conexiones.Conexion.Consulta("select NOMBRE,CI,NOTAS_E from  ESTUDIANTE_ESTA_INS_C");
+                while(res.next()){
+                    if(res.getString(2).equals(b)){
+                        JOptionPane.showMessageDialog(null,"Datos Encontrados");
+                        seccion.setText(res.getString(1));
+                        CedulaeEstu.setText(res.getString(2));
+                        NotaF.setText(res.getString(3));
+
+                    }
+
+                }
+
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+
+        SaveNota.setVisible(false);
+        this.cambios.setVisible(true);
+        Validacion();
+        ValidacionSeccion();
+    }
+    public void ModificarNots(){
+        try{
+            PreparedStatement pps = Conexiones.Conexion.getConexion().prepareStatement("update ESTUDIANTE_ESTA_INS_C set NOMBRE='" +
+                seccion.getText() + "', NOTAS_E='" + NotaF.getText()+ "' where CI='" + CedulaeEstu.getText() + "'");
+            pps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "LOS DATOS HAN SIDO MODIFICADOS");
+
+            seccion.setText("");
+            NotaF.setText("");
+            CedulaeEstu.setText("");
+            seccion.requestFocus();
+            NotaF.requestFocus();
+
+        }catch(SQLException e){
+        }
+        this.cambios.setVisible(false);
+        SaveNota.setVisible(true);
+    
+}
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        panelsuperior1 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        CodExiste = new javax.swing.JTextField();
+        panelsuperior = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        CodSeccionn = new javax.swing.JTextField();
+        SaveNota = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        CedulaeEstu = new javax.swing.JTextField();
+        cambios = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
+        ModificarDatosN = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        seccion = new javax.swing.JTextField();
+        NotaF = new javax.swing.JTextField();
+        CodExiste1 = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        NotaF1 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        CodExiste2 = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        CedulaeEstu1 = new javax.swing.JTextField();
+        CodExiste3 = new javax.swing.JTextField();
+        CodSeccionn1 = new javax.swing.JTextField();
+        seccion1 = new javax.swing.JTextField();
+
+        setBackground(new java.awt.Color(248, 247, 247));
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setTitle("Notas Estudiantiles");
+        setToolTipText("");
+
+        panelsuperior1.setBackground(new java.awt.Color(0, 153, 204));
+        panelsuperior1.setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(null);
+
+        CodExiste.setEditable(false);
+        CodExiste.setBackground(new java.awt.Color(255, 255, 255));
+        CodExiste.setBorder(null);
+        CodExiste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodExisteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CodExiste);
+        CodExiste.setBounds(1247, 132, 0, 20);
+
+        panelsuperior.setBackground(new java.awt.Color(0, 153, 204));
+        panelsuperior.setLayout(null);
+        jPanel1.add(panelsuperior);
+        panelsuperior.setBounds(0, 0, 770, 60);
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LOGOR.png"))); // NOI18N
+        jPanel1.add(jLabel17);
+        jLabel17.setBounds(350, 190, 980, 520);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_course_24px.png"))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel1.setText("CI:");
+
+        CodSeccionn.setEditable(false);
+        CodSeccionn.setBackground(new java.awt.Color(255, 255, 255));
+        CodSeccionn.setBorder(null);
+        CodSeccionn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodSeccionnActionPerformed(evt);
+            }
+        });
+
+        SaveNota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_save_64px_2.png"))); // NOI18N
+        SaveNota.setBorder(null);
+        SaveNota.setContentAreaFilled(false);
+        SaveNota.setEnabled(false);
+        SaveNota.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        SaveNota.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        SaveNota.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        SaveNota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                SaveNotaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                SaveNotaMouseExited(evt);
+            }
+        });
+        SaveNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveNotaActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_identification_documents_24px.png"))); // NOI18N
+
+        CedulaeEstu.setBorder(null);
+        CedulaeEstu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CedulaeEstuActionPerformed(evt);
+            }
+        });
+        CedulaeEstu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CedulaeEstuKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CedulaeEstuKeyTyped(evt);
+            }
+        });
+
+        cambios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_save_64px_2.png"))); // NOI18N
+        cambios.setBorder(null);
+        cambios.setContentAreaFilled(false);
+        cambios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        cambios.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        cambios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cambios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cambiosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cambiosMouseExited(evt);
+            }
+        });
+        cambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiosActionPerformed(evt);
+            }
+        });
+
+        jSeparator3.setBackground(new java.awt.Color(22, 44, 81));
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+
+        ModificarDatosN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_edit_property_64px_1.png"))); // NOI18N
+        ModificarDatosN.setBorder(null);
+        ModificarDatosN.setContentAreaFilled(false);
+        ModificarDatosN.setEnabled(false);
+        ModificarDatosN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ModificarDatosN.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        ModificarDatosN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ModificarDatosN.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                ModificarDatosNMouseMoved(evt);
+            }
+        });
+        ModificarDatosN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ModificarDatosNMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ModificarDatosNMouseExited(evt);
+            }
+        });
+        ModificarDatosN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarDatosNActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_note_24px.png"))); // NOI18N
+        jLabel5.setText("Notas Estudiantiles");
+
+        seccion.setBorder(null);
+        seccion.setEnabled(false);
+        seccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                seccionKeyReleased(evt);
+            }
+        });
+
+        NotaF.setBorder(null);
+        NotaF.setEnabled(false);
+        NotaF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NotaFActionPerformed(evt);
+            }
+        });
+        NotaF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                NotaFKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NotaFKeyTyped(evt);
+            }
+        });
+
+        CodExiste1.setEditable(false);
+        CodExiste1.setBackground(new java.awt.Color(255, 255, 255));
+        CodExiste1.setBorder(null);
+        CodExiste1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodExiste1ActionPerformed(evt);
+            }
+        });
+
+        jSeparator2.setBackground(new java.awt.Color(22, 44, 81));
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+
+        jSeparator1.setBackground(new java.awt.Color(22, 44, 81));
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel3.setText("Nota Final:");
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setText("Seccion:");
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_note_24px.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 50, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel27)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(seccion, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addComponent(CodSeccionn))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel25)
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CedulaeEstu, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addComponent(CodExiste1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NotaF, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SaveNota, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cambios, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addComponent(ModificarDatosN, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(CedulaeEstu, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(3, 3, 3)
+                                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(CodExiste1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(seccion, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(181, 181, 181)
+                        .addComponent(CodSeccionn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(1, 1, 1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(NotaF, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SaveNota)
+                            .addComponent(cambios)))
+                    .addComponent(ModificarDatosN, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(74, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(130, 80, 430, 470);
+
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/er.png"))); // NOI18N
+        jPanel1.add(jLabel18);
+        jLabel18.setBounds(0, 0, 1230, 680);
+
+        NotaF1.setBorder(null);
+        NotaF1.setEnabled(false);
+        NotaF1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NotaF1ActionPerformed(evt);
+            }
+        });
+        NotaF1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                NotaF1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NotaF1KeyTyped(evt);
+            }
+        });
+        jPanel1.add(NotaF1);
+        NotaF1.setBounds(320, 310, 105, 22);
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel6.setText("Nota Final:");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(240, 310, 70, 22);
+
+        CodExiste2.setEditable(false);
+        CodExiste2.setBackground(new java.awt.Color(255, 255, 255));
+        CodExiste2.setBorder(null);
+        CodExiste2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodExiste2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CodExiste2);
+        CodExiste2.setBounds(1247, 132, 0, 20);
+
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_identification_documents_24px.png"))); // NOI18N
+        jPanel1.add(jLabel26);
+        jLabel26.setBounds(240, 190, 24, 60);
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel7.setText("CI:");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(278, 210, 30, 17);
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_note_24px.png"))); // NOI18N
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(210, 304, 30, 30);
+
+        jSeparator4.setBackground(new java.awt.Color(22, 44, 81));
+        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jSeparator4);
+        jSeparator4.setBounds(320, 233, 103, 10);
+
+        jSeparator5.setBackground(new java.awt.Color(22, 44, 81));
+        jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jSeparator5);
+        jSeparator5.setBounds(320, 333, 105, 20);
+
+        CedulaeEstu1.setBorder(null);
+        CedulaeEstu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CedulaeEstu1ActionPerformed(evt);
+            }
+        });
+        CedulaeEstu1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CedulaeEstu1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CedulaeEstu1KeyTyped(evt);
+            }
+        });
+        jPanel1.add(CedulaeEstu1);
+        CedulaeEstu1.setBounds(320, 210, 105, 20);
+
+        CodExiste3.setEditable(false);
+        CodExiste3.setBackground(new java.awt.Color(22, 44, 81));
+        CodExiste3.setForeground(new java.awt.Color(255, 255, 255));
+        CodExiste3.setBorder(null);
+        CodExiste3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodExiste3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CodExiste3);
+        CodExiste3.setBounds(460, 210, 130, 20);
+
+        CodSeccionn1.setEditable(false);
+        CodSeccionn1.setBackground(new java.awt.Color(22, 44, 81));
+        CodSeccionn1.setForeground(new java.awt.Color(255, 255, 255));
+        CodSeccionn1.setBorder(null);
+        CodSeccionn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodSeccionn1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CodSeccionn1);
+        CodSeccionn1.setBounds(460, 260, 130, 20);
+
+        seccion1.setBorder(null);
+        seccion1.setEnabled(false);
+        seccion1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                seccion1KeyReleased(evt);
+            }
+        });
+        jPanel1.add(seccion1);
+        seccion1.setBounds(320, 260, 105, 22);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelsuperior1, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(panelsuperior1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void CodExisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodExisteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodExisteActionPerformed
+
+    private void NotaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotaFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NotaFActionPerformed
+
+    private void NotaFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NotaFKeyReleased
+
+    }//GEN-LAST:event_NotaFKeyReleased
+
+    private void NotaFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NotaFKeyTyped
+        char car = evt.getKeyChar();
+        if(NotaF.getText().length()>=8) evt.consume();
+        if((car<'0' || car>'9')) evt.consume();
+    }//GEN-LAST:event_NotaFKeyTyped
+
+    private void SaveNotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveNotaMouseEntered
+        SaveNota.setText("Guardar Nota");
+    }//GEN-LAST:event_SaveNotaMouseEntered
+
+    private void SaveNotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveNotaMouseExited
+        SaveNota.setText("");
+    }//GEN-LAST:event_SaveNotaMouseExited
+
+    private void SaveNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveNotaActionPerformed
+        GuardarNota();
+    }//GEN-LAST:event_SaveNotaActionPerformed
+
+    private void CedulaeEstuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CedulaeEstuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CedulaeEstuActionPerformed
+
+    private void CedulaeEstuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaeEstuKeyReleased
+        Validacion();
+    }//GEN-LAST:event_CedulaeEstuKeyReleased
+
+    private void CedulaeEstuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaeEstuKeyTyped
+        char car = evt.getKeyChar();
+        if(CedulaeEstu.getText().length()>=8) evt.consume();
+        if((car<'0' || car>'9')) evt.consume();
+    }//GEN-LAST:event_CedulaeEstuKeyTyped
+
+    private void cambiosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiosMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cambiosMouseEntered
+
+    private void cambiosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiosMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cambiosMouseExited
+
+    private void cambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiosActionPerformed
+        ModificarNots();
+    }//GEN-LAST:event_cambiosActionPerformed
+
+    private void ModificarDatosNMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModificarDatosNMouseMoved
+        ModificarDatosN.setToolTipText("Modificar Datos Estudiante");
+    }//GEN-LAST:event_ModificarDatosNMouseMoved
+
+    private void ModificarDatosNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModificarDatosNMouseEntered
+        ModificarDatosN.setText("Modificar Nota");
+    }//GEN-LAST:event_ModificarDatosNMouseEntered
+
+    private void ModificarDatosNMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModificarDatosNMouseExited
+        ModificarDatosN.setText("");
+    }//GEN-LAST:event_ModificarDatosNMouseExited
+
+    private void ModificarDatosNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarDatosNActionPerformed
+        BuscarNota();
+    }//GEN-LAST:event_ModificarDatosNActionPerformed
+
+    private void seccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_seccionKeyReleased
+        ValidacionSeccion();
+    }//GEN-LAST:event_seccionKeyReleased
+
+    private void CodExiste1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodExiste1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodExiste1ActionPerformed
+
+    private void CodSeccionnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodSeccionnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodSeccionnActionPerformed
+
+    private void NotaF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotaF1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NotaF1ActionPerformed
+
+    private void NotaF1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NotaF1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NotaF1KeyReleased
+
+    private void NotaF1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NotaF1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NotaF1KeyTyped
+
+    private void CodExiste2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodExiste2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodExiste2ActionPerformed
+
+    private void CedulaeEstu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CedulaeEstu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CedulaeEstu1ActionPerformed
+
+    private void CedulaeEstu1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaeEstu1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CedulaeEstu1KeyReleased
+
+    private void CedulaeEstu1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaeEstu1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CedulaeEstu1KeyTyped
+
+    private void CodExiste3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodExiste3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodExiste3ActionPerformed
+
+    private void CodSeccionn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodSeccionn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodSeccionn1ActionPerformed
+
+    private void seccion1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_seccion1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_seccion1KeyReleased
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTextField CedulaeEstu;
+    public static javax.swing.JTextField CedulaeEstu1;
+    public static javax.swing.JTextField CodExiste;
+    public static javax.swing.JTextField CodExiste1;
+    public static javax.swing.JTextField CodExiste2;
+    public static javax.swing.JTextField CodExiste3;
+    public static javax.swing.JTextField CodSeccionn;
+    public static javax.swing.JTextField CodSeccionn1;
+    public static javax.swing.JButton ModificarDatosN;
+    public static javax.swing.JTextField NotaF;
+    public static javax.swing.JTextField NotaF1;
+    public static javax.swing.JButton SaveNota;
+    public static javax.swing.JButton cambios;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JPanel panelsuperior;
+    private javax.swing.JPanel panelsuperior1;
+    public static javax.swing.JTextField seccion;
+    public static javax.swing.JTextField seccion1;
+    // End of variables declaration//GEN-END:variables
+}
